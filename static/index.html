@@ -5,7 +5,7 @@
 $( document ).ready(function() {
     // Handler for .ready() called.
 $.getJSON( "/cloud", function( data ) {
-    $( ".main" ).html( data );
+    $( "#main" ).text( data );
       alert( "Load was performed." );
 });
 });

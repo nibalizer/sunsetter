@@ -5,7 +5,15 @@
 $( document ).ready(function() {
     // Handler for .ready() called.
 $.getJSON( "/cloud", function( data ) {
-    $( "#main" ).text( data );
+  var items = [];
+  $.each( data, function( index ) {
+    items.push( "<li id='" + data[index].human_id + "'>" + data[index].human_id + "</li>" );
+  });
+
+  $( "<ul/>", {
+    "class": "my-new-list",
+    html: items.join( "" )
+  }).appendTo( "body" );
       alert( "Load was performed." );
 });
 });

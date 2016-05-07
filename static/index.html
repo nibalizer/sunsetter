@@ -1,0 +1,19 @@
+<html>
+	<head>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+		<script>
+$( document ).ready(function() {
+    // Handler for .ready() called.
+$.getJSON( "/cloud", function( data ) {
+    $( ".main" ).html( data );
+      alert( "Load was performed." );
+});
+});
+
+    </script>
+	
+	</head>
+  <body><div id="main"></div></body>
+
+
+</html>

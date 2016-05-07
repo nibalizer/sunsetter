@@ -1,6 +1,6 @@
 
 from flask import Flask
-from flask import json, request, jsonify, Response
+from flask import json, request, jsonify, Response, send_from_directory
 import shade
 import json
 import yaml
@@ -17,13 +17,13 @@ def output_format_dict(data, use_yaml):
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return send_from_directory('static', 'index.html')
 
 
 @app.route("/cloud")
 def cloud():
 
-    if request.headers['Content-Type'] == 'application/json':
+    if 'application/json' in request.headers['Accept']:
         output = inventory.list_hosts()
         js = json.dumps(output)
         resp = Response(js, status=200, mimetype='application/json')

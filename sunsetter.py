@@ -5,9 +5,11 @@ import shade
 import json
 import yaml
 import shade.inventory
+import datetime
 
 app = Flask(__name__)
 app.debug = True
+
 
 def output_format_dict(data, use_yaml):
     if use_yaml:
@@ -24,8 +26,13 @@ def hello():
 def cloud():
 
     if 'application/json' in request.headers['Accept']:
-        output = inventory.list_hosts()
-        js = json.dumps(output)
+        dt = datetime.timedelta(seconds=60)
+        now = datetime.datetime.now()
+        if caching_inventory['age'] + dt < now:
+            output = caching_inventory['inventory_obj'].list_hosts()
+            caching_inventory['cache'] = output
+
+        js = json.dumps(caching_inventory['cache'])
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
@@ -45,6 +52,9 @@ if __name__ == "__main__":
         inventory = shade.inventory.OpenStackInventory(
             refresh=True, private=True,
             cloud=None)
+        caching_inventory = { 'inventory_obj': inventory, 'cache': {}, 'age': datetime.datetime.now()}
+        output = caching_inventory['inventory_obj'].list_hosts()
+        caching_inventory['cache'] = output
     except shade.OpenStackCloudException as e:
         sys.stderr.write(e.message + '\n')
         sys.exit(1)

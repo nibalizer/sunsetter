@@ -10,7 +10,7 @@ It uses the [shade](http://git.openstack.org/cgit/openstack-infra/shade) opensta
 Usage
 =====
 
-Sunsetter requires a clouds.yaml file to exist in either ``~/.config/openstack/clouds.yaml`` or ``/etc/openstack/clouds.yaml``. This is setup and documented in [os-client-config](http://docs.openstack.org/developer/os-client-config/).
+Sunsetter requires a ``clouds.yaml`` file to exist in either ``~/.config/openstack/clouds.yaml`` or ``/etc/openstack/clouds.yaml``. This is setup and documented in [os-client-config](http://docs.openstack.org/developer/os-client-config/). For developers you can use a ``clouds.yaml`` file in the current working directory.
 
 ```shell
 virtualenv venv

@@ -4,12 +4,13 @@ SunSetter Retractable Awning
 
 This is a web frontend to the inventory commandline utility inside shade.
 
-It uses [shade](http://git.openstack.org/cgit/openstack-infra/shade) and [flask](http://flask.pocoo.org/docs/0.10/quickstart/).
+It uses the [shade](http://git.openstack.org/cgit/openstack-infra/shade) openstack client library and the [flask](http://flask.pocoo.org/docs/0.10/quickstart/) web microframework.
 
 
 Usage
 =====
 
+Sunsetter requires a clouds.yaml file to exist in either ``~/.config/openstack/clouds.yaml`` or ``/etc/openstack/clouds.yaml``. This is setup and documented in [os-client-config](http://docs.openstack.org/developer/os-client-config/).
 
 ```shell
 virtualenv venv

@@ -2,6 +2,24 @@
   <head>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://fgnass.github.io/spin.js/spin.min.js"></script>
+    <!-- bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- bootstrap tables -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+    <!-- Latest compiled and minified Locales -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
     <script>
 $( document ).ready(function() {
   // Handler for .ready() called.
@@ -34,16 +52,22 @@ var spinner = new Spinner(opts).spin(target);
 
 $.getJSON( "/cloud", function( data ) {
   var items = [];
-  $.each( data, function( index ) {
-    items.push( "<li id='" + data[index].human_id + "'>" + data[index].human_id + "</li>" );
-  });
-
   $("#main").html('');
-  $( "<ul/>", {
-    "class": "my-new-list",
-    html: items.join( "" )
-  }).appendTo( "#main" );
-      //alert( "Load was performed." );
+  $("<table id='table'></table>").appendTo( "#main");
+
+  $('#table').bootstrapTable({
+    columns: [{
+        field: 'human_id',
+        title: 'VM Name'
+    }, {
+        field: 'cloud',
+        title: 'Cloud'
+    }, {
+        field: 'public_v4',
+        title: 'V4 Addr'
+    }],
+    data: data
+  });
 });
 });
 
